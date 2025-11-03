@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Themed Layout</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+/*BASE THEME VARIABLES*/
+:root {
+  --bg: #f8fafc;
+  --text: #1e293b;
+  --card: #ffffff;
+  --primary: #4f46e5;
+
+  --radius: 14px;
+  --spacing-unit: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/*thems*/
+.theme-light {
+  --bg: #f8fafc;
+  --text: #1e293b;
+  --card: #ffffff;
+  --primary: #4f46e5;
+}
+
+.theme-dark {
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --card: #1e293b;
+  --primary: #818cf8;
+}
+
+.theme-solar {
+  --bg: #fff8e1;
+  --text: #3e2723;
+  --card: #ffecb3;
+  --primary: #f57f17;
+}
+
+/*RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*BODY */
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+/*HEADER*/
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-unit) 1.5rem;
+}
+
+.main-header h1 {
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-weight: 600;
+}
+
+/* theme select */
+.theme-controls .btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+/*CONTAINER + CARD*/
+
+.container {
+  display: grid;
+  gap: calc(var(--spacing-unit) * 1.3);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding: calc(var(--spacing-unit) * 1.5);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: calc(var(--spacing-unit) * 1.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-weight: 600;
+  margin-bottom: var(--spacing-unit);
+}
+
+.card p {
+  margin-bottom: calc(var(--spacing-unit) * 1.3);
+  line-height: 1.6;
+}
+
+/*BUTTONS*/
+.btn {
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Filled */
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.primary:hover {
+  opacity: 0.85;
+}
+
+/* Outline */
+.btn.outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn.outline:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/*FOOTER*/
+.footer {
+  text-align: center;
+  margin-top: calc(var(--spacing-unit) * 2);
+  padding-bottom: var(--spacing-unit);
+  opacity: 0.8;
+}
+</style>
+
+
+<body class="theme-light">
+  <header class="main-header">
+    <h1>Startup Portal</h1>
+
+    <div class="theme-controls">
+      <select id="themeSelector" class="btn">
+        <option value="theme-light">Light</option>
+        <option value="theme-dark">Dark</option>
+        <option value="theme-solar">Solar</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Welcome:</h2>
+      <p>
+        Now includes: multiple themes, persistence, utilities & responsive styles.
+      </p>
+      <a href="#" class="btn primary">Learn More</a>
+    </section>
+
+    <section class="card">
+      <h2>Features:</h2>
+      <p>
+        - Light, Dark, Solar themes  
+        - Auto theme detection  
+        - SCSS Powered  
+      </p>
+      <a href="#" class="btn outline">Explore</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© Biplob 2025 Startup Portal</p>
+  </footer>
+
+
+  <script>
+    const selector = document.getElementById("themeSelector");
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme) {
+      document.body.className = savedTheme;
+      selector.value = savedTheme;
+    } else {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.body.className = "theme-dark";
+        selector.value = "theme-dark";
+      }
+    }
+
+    selector.addEventListener("change", () => {
+      const newTheme = selector.value;
+      document.body.className = newTheme;
+      localStorage.setItem("theme", newTheme);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        html,
+        body {
+            font-family: "Abel", sans-serif;
+        display: flex;
+    align-items: center;
+justify-content: center;
+height: 100%
+}
+
+.weather-deshboard {
+    padding: 30px 50px;
+    border-radius: 6px;
+    box-shadow: 0px 2px 20px 5px rgba(red, rgb(10, 179, 10), rgb(4, 4, 147), alpha)
+    background-color:color(from color srgb r g b)
+.location {
+    font-size: 1.8em;
+    color:aliceblue;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.weather-data li {
+    margin-right: 30px;
+    display:inline-block;
+}
+
+.weather-data li:first-child {
+    margin-right: 55px;
+}
+
+.weather-data li:last-child {
+    margin-right: 0;
+}
+
+.day-name {
+    margin-bottom: 11px;
+    color:azure;
+    display: black;
+    font-weight: bold;
+}
+
+.current-temperature {
+    font-size: 1em;
+    color:azure;
+    margin-bottom: 15px;
+}
+
+.icons {
+    height: 25px;
+    width: 25px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.weather_description {
+    margin-left: 12px
+}
+
+.localtime {
+    margin-bottom: 40px;
+}
+    </style>
+</head>
+<body>
+    <div class="weather-dahboard">
+
+<div id="location" class="location"></div>
+
+<div id="localtime" class="localtime"></div>
+
+<ul class="weather-data" id="weather-data-list">
+
+<li>
+
+<img id="weather-icon" class="icons">
+
+<span id="weather_description" class="weather_description"></span>
+
+</img>
+
+<div id="temperature" class="current-temperature"></div>
+
+</li>
+
+</ul>
+
+</div>
+
+<script>
+
+const apikey "YOU - API - KEY;
+
+const apiurl="https://api.weatherstack.com/forecast?access_key=5(apiKey)&query=New York&forecast_days=5&hourly=0";
+
+fetch(apiUrl)
+
+.then(response => response.json())
+
+.then(jsonResponse => {
+
+const current = jsonResponse.current;
+
+
+// Update HTML elements with API data
+
+document.getElementById("location").textContent = jsonResponse.location.name;
+
+document.getElementById("weather-icon").src = current.weather_icons[0];
+
+document.getElementById("temperature").textContent = `${current.temperature} °C`;
+
+// Display local time and date
+
+const localtime = new Date(jsonResponse.location.localtime);
+
+const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][localTime.getDay()];
+
+const formattedTime = localtime.toLocaleTimeString('en-us 
+
+document.getElementById("localtime").textContent $(dayOfWeek), $(formattedTime)";
+
+// Display weather description
+
+const weatherDescription current.weather_descriptions[@];
+
+document.getElementById("weather_description").textContent weatherDescription;
+
+const forecast jsonResponse.forecast;
+
+// Get today's date in the format "YYYY-MM-DD"
+
+const todayDate=new Date().toISOString().split("T")[0];
+
+const daysList document.getElementById("weather-data-list");
+
+for (const date in forecast) {
+
+if (date les todayDate) (
+
+const avgTemp forecast [date].avgtemp;
+
+const dayIndex new Date(date).getDay(); //Get day index (0-6) for the given date
+
+const dayName ["Sun", "Mon", "Tue", "wed", "Thu", "Fri", "Sat"] [dayIndex];
+
+// Create li element
+
+const li document.createElement("li");
+
+// Create day-name span
+
+const dayNameSpan document.createElement("span");
+
+dayNameSpan.classList.add("day-name");
+
+dayNameSpan.textContent = dayName;
+
+11.appendChild(dayNameSpan);
+
+// Create forecast-tempeture div
+
+const tempetureDiv = document.createElement("div");
+
+tempetureDiv.classList.add("forecast-temperature");
+
+tempetureDiv.textContent = "$(avgTemp)"C";
+
+li.appendChild(tempetureDiv);
+
+daysList.appendChild(li);
+
+}
+}
+})
+,catch(error => {
+
+console.error("Error fetching data:", error);
+
+});
+
+</script>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessory Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+.body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color:blue;
+}
+
+.gallery-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  background-color: white;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 10px;
+}
+
+.product-card {
+  background-color:rgb(178, 67, 230);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(43, 35, 35, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.product-card h2 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+  background-color: yellow;
+}
+
+.price {
+  font-weight: bold;
+  background-color: #a714a0;
+  margin-bottom: 5px;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: rgb(4, 3, 4);
+}
+
+/* 📱 Responsive Adjustments */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .product-card img {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card img {
+    max-width: 100%;
+  }
+}
+</style>
+<body>
+  <h1 class="gallery-title"><u>Our Accessories</u></h1>
+  <div class="gallery">
+    <div class="product-card">
+      <img src="watch.jpg" alt="Titan Watch" />
+      <h2>Titan Watch</h2>
+      <p class="price">₹5,499</p>
+      <p class="description"><strong>Durable wristwatch with leather strap.</strong></p>
+    </div>
+    <div class="product-card">
+      <img src="bracelet.jpg" alt="Silver Bracelet" />
+      <h2>Silver Bracelet</h2>
+      <p class="price">₹2,299</p>
+      <p class="description"><strong>Minimalist silver bracelet for everyday wear.</strong></p>
+    </div>
+    <div class="product-card">
+      <img src="Sunglasses.jpg" alt="Sunglasses" />
+      <h2>Sunglasses</h2>
+      <p class="price">₹1,199</p>
+      <p class="description"><strong>Stylish and Protective.</strong></p>
+    </div>
+    <div class="product-card">
+      <img src="Shoes.jpg" alt="Branded Shoes" />
+      <h2>Branded Shoes</h2>
+      <p class="price">₹4,999</p>
+      <p class="description"><strong>Comfortable shoes for everyday wear.</strong></p>
+    </div>
+    <!-- Add more product-card blocks as needed -->
+  </div>
+</body>
+</html>
