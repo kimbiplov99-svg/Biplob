@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome Dashboard</title>
+
+  <link rel="stylesheet" href="external-style.css" />
+
+  <style>
+    /* internal css */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0803a5, #f39f86);
+      background-size: 300% 300%;
+      animation: gradientShift 10s ease infinite;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+    }
+    .circle1 { width: 130px; height: 130px; top: 80px; left: 200px; animation-delay: 1s; }
+    .circle2 { width: 220px; height: 220px; bottom: 100px; right: 200px; animation-delay: 3s; }
+    .circle3 { width: 100px; height: 100px; top: 100px; right: 100px; animation-delay: 2s; }
+    .circle4 { width: 80px; height: 80px; bottom: 80px; left: 80px; animation-delay: 2s; }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 { color: #fff; font-size: 3rem; margin-bottom: 40px; text-shadow: 2px 2px 6px rgba(0,0,0,0.3); }
+
+    .buttons { display: flex; flex-direction: column; gap: 20px; z-index: 2; }
+
+    button {
+      background: rgba(255,255,255,0.4);
+      border: none;
+      padding: 15px 40px;
+      font-size: 1rem;
+      color: white;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      backdrop-filter: blur(10px);
+    }
+    button:hover { transform: scale(1.1); background: rgba(255,255,255,0.6); }
+
+    .info-box, .table-box, .css-box, .js-box {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 25px 40px;
+      color: #333;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      z-index: 10;
+      transition: transform 0.4s ease;
+      width: 80%;
+      max-width: 700px;
+    }
+    .info-box.show, .table-box.show, .css-box.show, .js-box.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #f57b51;
+      border: none;
+      padding: 8px 20px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #clock { color: white; margin-top: 20px; font-size: 1.2rem; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 10px; }
+    th { background: #f57b51; color: white; }
+    td { background: #fff6f2; }
+  </style>
+</head>
+<body>
+    <!-- BACKGROUND CIRCLES -->
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="circle circle3"></div>
+  <div class="circle circle4"></div>
+  <h1>Welcome To My Website</h1>
+           <h1>Namaste!!</h1>
+
+  <div class="buttons">
+    <button onclick="toggleInfo()">👤 My Info</button>
+    <button onclick="toggleTable()">📚 Table One</button>
+    <button onclick="toggleCSS()">🎨 Last Class Work</button>
+    <button onclick="toggleJS()">💡 JavaScript File</button>
+  </div>
+
+  <div id="clock"></div>
+
+  <!-- 👨‍🎓 Info Box -->
+  <div class="info-box" id="infoBox">
+    <h2>👨‍🎓 Student Info</h2>
+    <p><strong>Name:</strong> Biplob M.</p>
+    <p><strong>Branch:</strong> BTech CSE</p>
+    <p><strong>Course:</strong> Web Development Fundamentals</p>
+    <p><strong>Roll No:</strong> 2500031486</p>
+    <p><strong>Institution:</strong> KL University</p>
+    <button class="close-btn" onclick="toggleInfo()">Close</button>
+  </div>
+
+  <!-- 📅 Table Box -->
+  <div class="table-box" id="tableBox">
+    <h2>📅 Weekly Schedule</h2>
+    <table>
+      <tr><th>Day</th><th>Subject</th><th>Time</th><th>Instructor</th></tr>
+      <tr><td>Monday</td><td>HTML & CSS</td><td>9:00 - 10:30</td><td>Dr. Dinesh</td></tr>
+      <tr><td>Tuesday</td><td>JavaScript Basics</td><td>10:45 - 12:15</td><td>Dr. Priya</td></tr>
+      <tr><td>Wednesday</td><td>Responsive Design</td><td>9:00 - 10:30</td><td>Dr. Raj</td></tr>
+      <tr><td>Thursday</td><td>Problems through Java</td><td>10:45 - 12:15</td><td>Dr. Anjali</td></tr>
+      <tr><td>Friday</td><td>Project Practice</td><td>9:00 - 10:30</td><td>Dr. Dinesh</td></tr>
+      <tr><td>Saturday</td><td>Project Practice</td><td>9:00 - 10:30</td><td>Dr. Karan</td></tr>
+      <tr><td>Sunday</td><td>Holiday</td><td>Rest😴</td><td>Holiday</td></tr>
+    </table>
+    <button class="close-btn" onclick="toggleTable()">Close</button>
+  </div>
+
+  <div class="css-box" id="cssBox">
+    <h2>🎨 CSS: External, Internal, Inline</h2>
+    <p>There are 3 main ways to style HTML using CSS:</p>
+    <ol style="text-align:left;">
+      <li><strong>External CSS</strong> — Uses a linked .css file<br>
+        <code>&lt;link rel="stylesheet" href="external-style.css"&gt;</code>
+      </li>
+      <li><strong>Internal CSS</strong> — Inside <code>&lt;style&gt;</code> tags within this HTML file.</li>
+      <li><strong>Inline CSS</strong> — Written directly in an element’s style attribute.</li>
+    </ol>
+
+    <div style="display:flex;gap:20px;justify-content:center;margin-top:15px;">
+      <div class="external-demo">External CSS Box</div>
+      <div class="internal-demo">Internal CSS Box</div>
+      <div style="background:yellow;padding:10px 20px;border-radius:10px;">Inline CSS Box</div>
+    </div>
+
+    <button class="close-btn" onclick="toggleCSS()">Close</button>
+  </div>
+
+  <div class="js-box" id="jsBox">
+    <h2>💡 JavaScript: External, Internal, Inline</h2>
+    <p>This section shows the 3 main ways to add JavaScript:</p>
+    <ol style="text-align:left;">
+      <li><strong>Inline JavaScript:</strong>  
+        <code>&lt;button onclick="alert('Hello Inline!')"&gt;&lt;/button&gt;</code></li>
+      <li><strong>Internal JavaScript:</strong>  
+        Inside <code>&lt;script&gt;</code> tags.</li>
+      <li><strong>External JavaScript:</strong>  
+        Linked via <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></li>
+    </ol>
+
+    <button style="background:#f57b51;color:white;border:none;padding:8px 15px;border-radius:8px;"
+      onclick="alert('This is inline JavaScript! 🎉')">Inline JS Example</button>
+    <button class="close-btn" onclick="toggleJS()">Close</button>
+  </div>
+  <footer class="footer">
+    <p>© Biplob 2025 Website Portal</p>
+  </footer>
+
+  <script>
+    function toggleInfo() { document.getElementById("infoBox").classList.toggle("show"); }
+    function toggleTable() { document.getElementById("tableBox").classList.toggle("show"); }
+    function toggleCSS() { document.getElementById("cssBox").classList.toggle("show"); }
+    function toggleJS() { document.getElementById("jsBox").classList.toggle("show"); }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").innerText = "Current Time: " + now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+  </script>
+
+  <script src="external-script.js"></script>
+</body>
+</html>
