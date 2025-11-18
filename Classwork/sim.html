@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task 1 — Simple Project</title>
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --accent: #2563eb; 
+      --muted: #6b7280;
+      --radius: 12px;
+      --max-w: 1000px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;background:var(--bg);color:#0f172a}
+    a{color:inherit;text-decoration:none}
+
+    .container{
+      max-width:var(--max-w);
+      margin:28px auto;
+      padding:20px;
+    }
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#60a5fa,#7c3aed);
+      display:grid;place-items:center;color:white;font-weight:700;font-size:18px;
+    }
+    h1{font-size:20px}
+    p.lead{color:var(--muted);font-size:14px}
+
+    nav{display:flex;gap:12px}
+    nav a{padding:8px 12px;border-radius:10px;font-size:14px;color:var(--muted)}
+    nav a.primary{background:transparent;border:1px solid rgba(37,99,235,0.12);color:var(--accent)}
+
+    .hero{
+      background:linear-gradient(180deg, rgba(37,99,235,0.06), rgba(124,58,237,0.02));
+      border-radius:var(--radius);padding:18px;margin-bottom:18px;display:flex;gap:18px;align-items:center;
+    }
+    .hero .info{flex:1}
+    .hero h2{font-size:18px;margin-bottom:6px}
+    .hero p{color:var(--muted);font-size:13px}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;font-weight:600}
+
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(3,7,18,0.06)}
+
+    .side-list{display:flex;flex-direction:column;gap:10px}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr}
+      nav{display:none}
+      .hero{flex-direction:column;align-items:flex-start}
+    }
+    .muted{color:var(--muted)}
+    .btn-outline{padding:8px 10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">T1</div>
+        <div>
+          <h1>Task 1 — Simple Project</h1>
+          <p class="lead">A minimal single-file HTML + CSS project for learning and sharing.</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="primary">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero card" aria-labelledby="hero-title">
+        <div class="info">
+          <h2 id="hero-title">Build small, learn fast</h2>
+          <p>This page contains a sample project list, a short about area, and contact details — all in one file. Use it as a starter template for Task 1.</p>
+        </div>
+        <div>
+          <a href="#projects" class="cta">See projects</a>
+        </div>
+      </section>
+
+      <div class="grid">
+
+        <aside class="card">
+          <div class="side-list">
+            <div>
+              <h4>About this task</h4>
+              <p class="small muted">Simple static site made to fulfill a basic "Task 1" project requirement. No build tools required.</p>
+            </div>
+
+            <div>
+              <h4>Skills demonstrated</h4>
+              <ul class="small muted">
+                <li>HTML structure and semantic tags</li>
+                <li>CSS layout (flexbox + grid)</li>
+                <li>Responsive design basics</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 id="contact">Contact</h4>
+              <p class="small muted">Your Name — <a href="kimbiplov99@gmail.com">kimbiplov99@gmail.com</a></p>
+              <p class="small muted">Or link to your GitHub / portfolio</p>
+            </div>
+
+            <div style="margin-top:6px">
+              <button class="btn-outline">Download</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    </main>
+
+    <footer>
+      <p> Biplob Task 1 • Simple Project 2025</p>
+    </footer>
+  </div>
+</body>
+</html>

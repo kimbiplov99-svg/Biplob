@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Greeting with Clock</title>
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        overflow: hidden;
+        transition: background 1s ease;
+        color: #fff;
+    }
+
+    .container {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        padding: 35px;
+        border-radius: 22px;
+        width: 360px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0,0,0,0.25);
+        animation: fadeIn 1s ease-in-out;
+        transition: 0.4s;
+    }
+
+    .container:hover {
+        transform: translateY(-5px);
+    }
+
+    /* CLOCK STYLE */
+    #clock {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 8px #fff; }
+        to   { text-shadow: 0 0 18px #00eaff; }
+    }
+
+    input, select {
+        width: 90%;
+        padding: 12px;
+        margin: 12px 0;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 17px;
+        transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+        box-shadow: 0 0 10px #fff;
+    }
+
+    button {
+        padding: 12px 25px;
+        border: none;
+        background: white;
+        color: #2575fc;
+        font-weight: bold;
+        border-radius: 12px;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    #message {
+        margin-top: 20px;
+        font-size: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+        min-height: 60px;
+    }
+
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0); }
+    }
+
+    .emoji {
+        position: absolute;
+        font-size: 30px;
+        animation: floatUp 3s linear forwards;
+        opacity: 0;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(50px); opacity: 1; }
+        100% { transform: translateY(-250px); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.85); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 📌 LIVE CLOCK -->
+    <div id="clock"></div>
+
+    <h2>✨ Personalized Greeting ✨</h2>
+
+    <input type="text" id="name" placeholder="Enter your name">
+    <select id="mood">
+        <option value="">How are you feeling?</option>
+        <option value="happy">😊 Happy</option>
+        <option value="sad">😢 Sad</option>
+        <option value="excited">🤩 Excited</option>
+        <option value="tired">😴 Tired</option>
+    </select>
+
+    <button onclick="showGreeting(event)">Show Greeting</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+
+// 📌 LIVE CLOCK FUNCTION 
+function updateClock() {
+    let clock = document.getElementById("clock");
+    let now = new Date();
+    let h = now.getHours().toString().padStart(2, "0");
+    let m = now.getMinutes().toString().padStart(2, "0");
+    let s = now.getSeconds().toString().padStart(2, "0");
+    clock.innerHTML = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// MAIN GREETING LOGIC
+function showGreeting(event) {
+
+    let name = document.getElementById("name").value.trim();
+    let mood = document.getElementById("mood").value;
+    let message = document.getElementById("message");
+
+    if (name === "" || mood === "") {
+        typeText(message, "⚠️ Please enter your name and select a mood!");
+        message.style.opacity = "1";
+        message.style.transform = "translateY(0)";
+        return;
+    }
+
+    let hours = new Date().getHours();
+    let greeting = hours < 12 ? "Good Morning" :
+                   hours < 17 ? "Good Afternoon" :
+                                "Good Evening";
+
+    let moodMessage = "";
+    let moodColor = "";
+
+    if (mood === "happy") {
+        moodMessage = "You're glowing with positivity! 😊";
+        moodColor = "#ffd54f";
+        spawnEmojis("😊");
+    }
+    else if (mood === "sad") {
+        moodMessage = "Sending you positive vibes! 💙";
+        moodColor = "#4fc3f7";
+        spawnEmojis("💙");
+    }
+    else if (mood === "excited") {
+        moodMessage = "Your energy is contagious! ⚡";
+        moodColor = "#ff6f61";
+        spawnEmojis("⚡");
+    }
+    else if (mood === "tired") {
+        moodMessage = "Take some rest and relax! 😴";
+        moodColor = "#b39ddb";
+        spawnEmojis("😴");
+    }
+
+    document.body.style.background = `linear-gradient(135deg, ${moodColor}, #000)`;
+
+    let finalText = `${greeting}, ${name}!<br>${moodMessage}`;
+    typeText(message, finalText);
+
+    message.style.opacity = "1";
+    message.style.transform = "translateY(0)";
+    message.style.animation = "bounce 1s ease";
+}
+
+// TYPING EFFECT
+function typeText(element, text) {
+    element.innerHTML = "";
+    let i = 0;
+    let interval = setInterval(() => {
+        element.innerHTML = text.slice(0, i);
+        i++;
+        if (i > text.length) clearInterval(interval);
+    }, 30);
+}
+
+// EMOJI FLOATING EFFECT
+function spawnEmojis(emoji) {
+    for (let i = 0; i < 6; i++) {
+        let span = document.createElement("span");
+        span.classList.add("emoji");
+        span.innerHTML = emoji;
+        span.style.left = Math.random() * window.innerWidth + "px";
+        span.style.bottom = "0px";
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 3000);
+    }
+}
+
+</script>
+
+</body>
+</html>

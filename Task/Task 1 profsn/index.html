@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio Advanced</title>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --bg: #052658;
+  --card: #05295c;
+  --txt: #fff;
+  --accent: #00e0ff;
+}
+.light {
+  --bg: #f3f3f3;
+  --card: #fff;
+  --txt: #111;
+  --accent: #1c7eff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  transition: 0.3s ease;
+}
+
+.bg-orb {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #db07cd, transparent 70%);
+  top: 10%;
+  left: 5%;
+  filter: blur(80px);
+  z-index: -1;
+}
+.bg-orb2 {
+  position: fixed;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #02a4b9eb, transparent 70%);
+  bottom: 10%;
+  right: 5%;
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 90px 0;
+  background: var(--card);
+  border-radius: 15px;
+  margin-top: 20px;
+  border: 1px solid #000000;
+  transition: 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+header:hover {
+  transform: perspective(900px) rotateX(2deg);
+}
+
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  background: conic-gradient(#00e0ff, #7d00ff);
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #fff;
+  animation: rotate 5s linear infinite;
+}
+.profile-pic:hover {
+  scale: 1.08;
+}
+@keyframes rotate {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+h1 {
+margin-top: 25px;
+font-size: 40px;
+font-weight: 700;
+animation: typewriter 2.5s
+steps(20);
+white-space: nowrap;
+overflow: hidden;
+border-right: 2px solid var(--accent);
+}
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.role {
+  font-size: 20px;
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+.description {
+  max-width: 600px;
+  margin: 20px auto;
+  opacity: 0.85;
+}
+
+button, .social-btn {
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+.blue-btn {
+  background: linear-gradient(to right, #00d4ff, #007fff);
+  color: #fff;
+}
+
+.social-btn {
+  background: #000000;
+  color: #fff;
+}
+
+.theme-toggle {
+  margin-top: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 8px 14px;
+  border-radius: 20px;
+  color: var(--accent);
+}
+.section-card {
+  background: var(--card);
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 30px;
+  border: 1px solid #000000;
+  animation: fadeUp 0.7s ease;
+}
+@keyframes fadeUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+.skills {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.skill {
+  background: linear-gradient(to right, #000000, #34d20c);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #bcd3ff;
+  transition: 0.3s;
+}
+.skill:hover {
+  background: var(--accent);
+  color: rgb(5, 0, 0);
+}
+.row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+.info-box {
+  flex: 1;
+  min-width: 280px;
+  background: var(--card);
+  border: 1px solid #000000;
+  border-radius: 15px;
+  padding: 25px;
+}
+.info-box h3 {
+  margin-bottom: 14px;
+}
+.info-box ul {
+  margin-left: 20px;
+}
+.info-box ul li {
+  margin-bottom: 10px;
+}
+/* Footer */
+footer {
+  text-align: center;
+  margin: 40px 0;
+  opacity: 0.7;
+  font-size: 15px;
+}
+</style>
+</head>
+
+<body>
+  
+<div class="bg-orb"></div>
+<div class="bg-orb2"></div>
+
+<div class="container">
+
+  <header>
+    <div class="profile-pic">WELCOME</div>
+    <h1>Biplob Kr. M.</h1>
+    <p class="role">Front-End Developer • UI/UX Engineer</p>
+
+    <p class="description">
+      I craft clean UI/UX with accessibility, system-driven design & graphic design.
+    </p>
+
+    <div class="button-row">
+      <button class="blue-btn">Download CV</button>
+      <button class="sosial-btn" onclick="mailto()">Contact Me</button>
+    </div>
+
+    <div>
+      <button class="social-btn" onclick="openLink('https://linkedin.com')">LinkedIn</button>
+      <button class="social-btn" onclick="openLink('https://github.com')">GitHub</button>
+      <button class="social-btn" onclick="openLink('https://twitter.com')">Twitter</button>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <div class="section-card">
+    <h2>About Me</h2>
+    <p style="margin-top:15px;">
+      I Specialize In Semantic UI/UX Using Modern <strong>HTML, CSS/SCSS, JavaScript & Adobe</strong>.
+      Highly Focused On Creates Visual Concepts, Designing For Various Media,Typography And Color Theory And Animation & Transition.
+    </p>
+
+    <h3 style="margin-top:25px;">KEY SKILLS</h3>
+    <div class="skills">
+      <div class="skill">Programming</div>
+      <div class="skill">Semantic HTML</div>
+      <div class="skill">Responsive CSS</div>
+      <div class="skill">Web Design</div>
+      <div class="skill">Graphic Design</div>
+      <div class="skill">Animations</div>
+      <div class="skill">Video Editing</div>
+      <div class="skill">Performance</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="info-box">
+      <h3>HIGHLIGHTS</h3>
+      <ul>
+        <li>Shipped design system components for multiple products</li>
+        <li>Improved Core Web Vitals (LCP + CLS) across 3 web apps</li>
+        <li>Mentored teams on CSS architecture and A11y best practices</li>
+        <li>Infographics that simplify complex information</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>CONTACT</h3>
+      <p>Email: <a href="kimbiplov99@gmail.com" style="color:#00e0ff;">kimbiplov99@gmail.com</a></p>
+      <p>Location: Ranchi, India</p>
+      <p>Open to: Front-end roles, UI/UX engineering, design systems</p>
+    </div>
+  </div>
+  <footer>
+    © 2025 Biplob M. — Crafted with HTML & CSS
+  </footer>
+</div>
+<script>
+function toggleTheme(){
+  document.body.classList.toggle("light");
+}
+</script>
+</body>
+</html>

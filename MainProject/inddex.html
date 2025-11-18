@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Find & Hire — Professional Finder</title>
+  <style>
+    :root{
+      --bg:#303bd6; --card:#02060e; --muted:#29b82e; --accent:#60a5fa; --glass: rgba(255,255,255,0.03);
+      --success:#16a34a; --danger:#ef4444;
+      font-synthesis: none;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#07102a 0%, #071427 100%); color:#e6eef8; margin:0; padding:24px}
+    .container{max-width:1200px;margin:0 auto}
+
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),#7c3aed);border-radius:10px;display:grid;place-items:center;font-weight:700}
+    h1{font-size:18px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .search, .select, .range{background:var(--card);border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:10px;color:inherit}
+    .search input{background:transparent;border:none;outline:none;color:inherit;width:260px}
+    .select select{background:transparent;border:none;color:inherit}
+    .chip{background:var(--glass);padding:8px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns: 1fr 320px; gap:18px}
+    .left{min-width:0}
+    .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+
+    .card{background:linear-gradient(180deg, rgb(175, 19, 227), rgb(235, 44, 108));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
+    .profile{display:flex;gap:12px;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:grid;place-items:center;font-weight:700}
+    .meta{flex:1}
+    .meta h3{margin:0;font-size:15px}
+    .muted{color:var(--muted);font-size:13px}
+
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px}
+
+    .card-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .btn{background:var(--accent);color:#041028;padding:8px 12px;border-radius:10px;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .heart{background:transparent;border:none;cursor:pointer;font-size:18px;color:var(--muted)}
+
+    aside.sidebar{background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .sidebar h4{margin:0 0 10px 0}
+    .filter-row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+
+    .rating{display:inline-block;background:rgba(255,255,255,0.03);padding:4px 8px;border-radius:8px;font-size:13px}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0, 0, 0, 0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{background:linear-gradient(180deg,#2a0cae,#520dac);border-radius:12px;padding:16px;max-width:520px;width:100%;border:1px solid rgba(255,255,255,0.04)}
+    .modal h3{margin-top:0}
+    .form-row{display:flex;gap:8px;margin-bottom:8px}
+    .form-row input, .form-row textarea{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit}
+    .close-x{background:transparent;border:none;color:var(--muted);cursor:pointer}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .search input{width:140px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FH</div>
+        <div>
+          <h1>Find & Hire</h1>
+          <p class="lead">Search, filter and contact professionals — mock demo (no backend)</p>
+        </div>
+      </div>
+      <div class="chip">100+ professionals</div>
+    </header>
+
+      <div style="text-align:right;margin-bottom:10px;">
+        <select id="themeSelect" class="btn secondary">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+          <option value="sunset">Sunset</option>
+        </select>
+      </div>
+
+
+    <div class="controls">
+      <div class="search">
+        <svg style="vertical-align:middle;opacity:.7" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 21l-4.35-4.35"></path><circle cx="11" cy="11" r="6"></circle></svg>
+        <input id="q" placeholder="Search name, skill, or keyword" />
+      </div>
+
+      <div class="select">
+        <select id="category">
+          <option value="">All categories</option>
+          <option>Design</option>
+          <option>Development</option>
+          <option>Marketing</option>
+          <option>Writing</option>
+          <option>Video</option>
+        </select>
+      </div>
+
+      <div class="select">
+        <select id="location">
+          <option value="">Anywhere</option>
+          <option>Remote</option>
+          <option>India</option>
+          <option>USA</option>
+          <option>Europe</option>
+        </select>
+      </div>
+
+      <div class="select">
+        <select id="sort">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="rating">Top rated</option>
+          <option value="price_asc">Price: Low to high</option>
+          <option value="price_desc">Price: High to low</option>
+        </select>
+      </div>
+
+      <div class="chip">Free to use demo</div>
+    </div>
+
+    <div class="grid">
+      <main class="left">
+        <section class="list" id="results">
+          <!-- cards injected -->
+        </section>
+
+        <footer><center>© Team 9 2025 | Find & Hire | All Rights Reserved.</center></footer>
+      </main>
+
+      <aside class="sidebar">
+        <h4>Filters</h4>
+        <div class="filter-row">
+          <label class="muted">Min rating</label>
+          <select id="minRating">
+            <option value="0">Any</option>
+            <option value="4">4+</option>
+            <option value="4.5">4.5+</option>
+          </select>
+        </div>
+        <div class="filter-row">
+          <label class="muted">Max hourly</label>
+          <input id="maxPrice" type="number" placeholder="e.g. 60" />
+        </div>
+        <div class="filter-row">
+          <button class="btn" id="clear">Clear filters</button>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgb(225, 235, 45);margin:12px 0" />
+        <h4>Shortlist</h4>
+        <div id="shortlist" class="muted">No saved profiles yet</div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="modalTitle">Hire</h3>
+        <button class="close-x" id="closeModal">✕</button>
+      </div>
+      <p class="muted" id="modalSub">Send a quick message to the professional.</p>
+      <div style="margin-top:8px">
+        <div class="form-row">
+          <input id="clientName" placeholder="Your name" />
+        </div>
+        <div class="form-row">
+          <input id="clientEmail" placeholder="Your email" />
+        </div>
+        <div class="form-row">
+          <textarea id="clientMsg" rows="4" placeholder="Project details, timeframe, budget..."></textarea>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button class="btn secondary" id="cancelHire">Cancel</button>
+          <button class="btn" id="submitHire">Send request</button>
+        </div>
+        <p id="hireStatus" class="muted" style="margin-top:8px"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const professionals = [
+      {id:1,name:'Ayesha Sharma',title:'UI/UX Designer',category:'Design',location:'India',skills:['Figma','Prototyping'],rate:30,rating:4.8,about:'Product-focused designer building clear experiences.'},
+      {id:2,name:'Rahul Mehta',title:'Frontend Developer',category:'Development',location:'Remote',skills:['React','JavaScript','CSS'],rate:45,rating:4.7,about:'I build fast, accessible web apps.'},
+      {id:3,name:'Sara Lee',title:'Content Writer',category:'Writing',location:'USA',skills:['SEO','Blogging'],rate:25,rating:4.6,about:'SEO-friendly content that converts.'},
+      {id:4,name:'Liam O"Connor',title:'Digital Marketer',category:'Marketing',location:'Europe',skills:['Ads','Growth'],rate:50,rating:4.9,about:'Data-driven growth marketer.'},
+      {id:5,name:'Dev Patel',title:'Fullstack Engineer',category:'Development',location:'India',skills:['Node.js','React','Postgres'],rate:60,rating:4.5,about:'Scalable backend & frontend systems.'},
+      {id:6,name:'Maya Green',title:'Video Editor',category:'Video',location:'Remote',skills:['Premiere','After Effects'],rate:35,rating:4.4,about:'Polished videos for brands and creators.'}
+    ];
+
+    const resultsEl = document.getElementById('results');
+    const q = document.getElementById('q');
+    const category = document.getElementById('category');
+    const locationEl = document.getElementById('location');
+    const sortEl = document.getElementById('sort');
+    const minRating = document.getElementById('minRating');
+    const maxPrice = document.getElementById('maxPrice');
+    const clearBtn = document.getElementById('clear');
+    const shortlistEl = document.getElementById('shortlist');
+
+    let shortlist = new Set();
+
+    function render(){
+      const query = q.value.trim().toLowerCase();
+      const cat = category.value;
+      const loc = locationEl.value;
+      const sort = sortEl.value;
+      const minR = parseFloat(minRating.value)||0;
+      const maxP = parseFloat(maxPrice.value)||Infinity;
+
+      let out = professionals.filter(p=>{
+        if(cat && p.category !== cat) return false;
+        if(loc && p.location !== loc) return false;
+        if(p.rating < minR) return false;
+        if(p.rate > maxP) return false;
+        if(!query) return true;
+        const hay = (p.name + ' ' + p.title + ' ' + p.skills.join(' ') + ' ' + p.about).toLowerCase();
+        return hay.includes(query);
+      });
+
+      if(sort === 'rating') out.sort((a,b)=>b.rating-a.rating);
+      if(sort === 'price_asc') out.sort((a,b)=>a.rate-b.rate);
+      if(sort === 'price_desc') out.sort((a,b)=>b.rate-a.rate);
+
+      resultsEl.innerHTML = out.map(p=>cardHTML(p)).join('');
+      renderShortlist();
+    }
+
+    function cardHTML(p){
+      const saved = shortlist.has(p.id) ? '♥' : '♡';
+      return `
+        <article class="card">
+          <div class="profile">
+            <div class="avatar">${initials(p.name)}</div>
+            <div class="meta">
+              <h3>${escapeHtml(p.name)} <span class="muted">· ${escapeHtml(p.title)}</span></h3>
+              <div class="muted">${escapeHtml(p.location)} · <span class="rating">${p.rating} ★</span> · $${p.rate}/hr</div>
+              <p class="muted" style="margin-top:8px;font-size:13px">${escapeHtml(p.about)}</p>
+              <div class="tags" style="margin-top:8px">${p.skills.map(s=>'<span class="tag">'+escapeHtml(s)+'</span>').join('')}</div>
+            </div>
+          </div>
+          <div class="card-bottom">
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openHire(${p.id})">Hire</button>
+              <button class="btn secondary" onclick="viewProfile(${p.id})">View</button>
+            </div>
+            <div>
+              <button class="heart" onclick="toggleSave(${p.id}, this)">${saved}</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function initials(name){ return name.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase(); }
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    window.toggleSave = (id, el) => {
+      if(shortlist.has(id)) shortlist.delete(id); else shortlist.add(id);
+      render();
+    }
+
+    function renderShortlist(){
+      if(shortlist.size===0){ shortlistEl.textContent='No saved profiles yet'; return }
+      const ids = Array.from(shortlist);
+      shortlistEl.innerHTML = ids.map(id=>{
+        const p = professionals.find(x=>x.id===id);
+        return `<div style="margin-bottom:8px">${escapeHtml(p.name)} <span class="muted">· ${p.title} · $${p.rate}/hr</span></div>`;
+      }).join('');
+    }
+
+    window.viewProfile = id => {
+      const p = professionals.find(x=>x.id===id);
+      alert(p.name + '\n' + p.title + '\n' + p.skills.join(', ') + '\n' + p.about);
+    }
+
+    const modal = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSub = document.getElementById('modalSub');
+    const clientName = document.getElementById('clientName');
+    const clientEmail = document.getElementById('clientEmail');
+    const clientMsg = document.getElementById('clientMsg');
+    const closeModal = document.getElementById('closeModal');
+    const cancelHire = document.getElementById('cancelHire');
+    const submitHire = document.getElementById('submitHire');
+    const hireStatus = document.getElementById('hireStatus');
+
+    let hiringFor = null;
+
+    window.openHire = id => {
+      const p = professionals.find(x=>x.id===id);
+      hiringFor = p;
+      modalTitle.textContent = `Hire — ${p.name}`;
+      modalSub.textContent = `${p.title} · ${p.location} · $${p.rate}/hr`;
+      clientName.value = '';
+      clientEmail.value = '';
+      clientMsg.value = '';
+      hireStatus.textContent = '';
+      modal.style.display = 'flex';
+    }
+
+    closeModal.addEventListener('click', ()=> modal.style.display = 'none');
+    cancelHire.addEventListener('click', ()=> modal.style.display = 'none');
+
+    submitHire.addEventListener('click', ()=>{
+      const name = clientName.value.trim();
+      const email = clientEmail.value.trim();
+      const msg = clientMsg.value.trim();
+      if(!name || !email || !msg){ hireStatus.style.color='var(--danger)'; hireStatus.textContent='Please fill all fields.'; return }
+
+      hireStatus.style.color='var(--muted)'; hireStatus.textContent='Sending request...';
+      setTimeout(()=>{
+        hireStatus.style.color='var(--success)';
+        hireStatus.textContent = `Request sent to ${hiringFor.name}. They will contact you at ${email} (demo).`;
+        setTimeout(()=>{ modal.style.display='none' }, 1200);
+      }, 900);
+    });
+
+    // wire filters
+    [q, category, locationEl, sortEl, minRating, maxPrice].forEach(el=>el.addEventListener('input', render));
+    clearBtn.addEventListener('click', ()=>{ q.value=''; category.value=''; locationEl.value=''; sortEl.value='relevance'; minRating.value='0'; maxPrice.value=''; render(); });
+
+    const themeSelect = document.getElementById('themeSelect');
+
+    const themes = {
+      dark:{bg:'#0f1724',card:'#0b1220',muted:'#9aa6bd',accent:'#60a5fa',text:'#e6eef8'},
+      light:{bg:'#f1f5f9',card:'#ffffff',muted:'#475569',accent:'#2563eb',text:'#0f172a'},
+      blue:{bg:'#0d1b2a',card:'#1b263b',muted:'#778da9',accent:'#3a86ff',text:'#e0e1dd'},
+      green:{bg:'#0b2e29',card:'#0f3b32',muted:'#8fc8b8',accent:'#34d399',text:'#eafff7'},
+      purple:{bg:'#1a102c',card:'#241542',muted:'#a78bfa',accent:'#c084fc',text:'#ede9fe'},
+      sunset:{bg:'#2e1a12',card:'#3b2218',muted:'#f9caa7',accent:'#fb8500',text:'#fff4e6'}
+    };
+
+    function applyTheme(key){
+      const t = themes[key] || themes.dark;
+      root.style.setProperty('--bg',t.bg);
+      root.style.setProperty('--card',t.card);
+      root.style.setProperty('--muted',t.muted);
+      root.style.setProperty('--accent',t.accent);
+      document.body.style.color = t.text;
+    }
+
+    themeSelect.addEventListener('change', e=>applyTheme(e.target.value));
+
+    applyTheme('dark');
+
+    render();
+  </script>
+  <script>
+    document.addEventListener('mouseover', e => {
+      const card = e.target.closest('.card');
+      if(card) card.style.transform = 'scale(1.03)';
+    });
+    document.addEventListener('mouseout', e => {
+      const card = e.target.closest('.card');
+      if(card) card.style.transform = 'scale(1)';
+    });
+
+    // Smooth theme transitions
+    document.documentElement.style.transition = 'all 0.8s ease';
+    document.body.style.transition = 'all 0.8s ease';
+  </script>
+</body>
+</html>

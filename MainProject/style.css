@@ -1,0 +1,60 @@
+:root {
+      --bg: #1059cf;
+      --card: #b012e4;
+      --muted: #9aa6bd;
+      --accent: #a7d627;
+      --text: #2c0c84;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      transition: all 0.8s ease;
+    }
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      border-radius: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-custom {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-custom:hover {
+      transform: scale(1.03);
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .tag {
+      background: rgb(32, 174, 230);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-right: 4px;
+    }
+    .modal-content {
+      background: linear-gradient(180deg, #2a0cae, #520dac);
+      color: white;
+    }
+    footer {
+      color: var(--muted);
+      margin-top: 20px;
+      font-size: 13px;
+      text-align: center;
+    }

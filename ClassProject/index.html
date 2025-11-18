@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WE Travels — A Unique Travel Blog</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#0d6efd;
+      --muted:#667085;
+      --dark:#0b1220;
+      --card:#ffffff;
+    }
+    body{
+      background:linear-gradient(180deg,#703f95 0%, #55bdf6 100%);
+      font-family:Inter, system-ui;
+    }
+    .logo{
+      width:52px;height:52px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),#7b61ff);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:700;
+      box-shadow:0 6px 18px rgba(13,110,253,0.12);
+    }
+    .thumb{height:170px;background-size:cover;background-position:center;border-radius:10px}
+    .tag{background:#ea4bcd;color:#fff;padding:6px 14px;border-radius:50px;font-size:0.85rem}
+    .gallery img{height:120px;object-fit:cover;border-radius:10px}
+    .heroimg{width:100%;height:340px;object-fit:cover;border-radius:12px}
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <div class="logo me-2">WN</div>
+      <div>
+        <h5 class="m-0 fw-bold">WeTravels</h5>
+        <small class="text-muted">Travel stories, guides & photos</small>
+      </div>
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#destinations">Destinations</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#gallery">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">Contact</a></li>
+      </ul>
+      <a class="btn btn-primary ms-3" href="#create-post">Create Post</a>
+    </div>
+  </div>
+</nav>
+<div class="container my-4">
+  <!-- HERO SECTION -->
+  <div class="row align-items-center" id="home">
+    <div class="col-lg-7">
+      <div class="p-4 bg-white shadow rounded">
+        <h2 class="fw-bold">Stories that make you pack your bag.</h2>
+        <p class="text-muted">
+          Mini-guides, reviews and photo-led travel stories from short getaways to long trips.
+        </p>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <span class="tag">Budget</span>
+          <span class="tag">Backpacking</span>
+          <span class="tag">Food</span>
+          <span class="tag">Nature</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 mt-3 mt-lg-0">
+      <div class="p-4 bg-info text-white rounded shadow">
+        <label class="form-label">Search posts or places</label>
+        <input class="form-control mb-2" id="search" placeholder="Try 'Goa', 'Manali', or 'food'">
+        <strong>Popular:</strong>
+        <div class="d-flex flex-column gap-1 mt-2">
+          <span class="tag">Goa Beaches</span>
+          <span class="tag">Taj Mahal</span>
+          <span class="tag">South India Food</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MAIN GRID -->
+  <div class="row mt-4">
+    <div class="col-lg-8">
+      <div class="row g-3" id="posts"></div>
+      <button class="btn btn-primary mt-3 d-block mx-auto" id="loadMore">Load more posts</button>
+    </div>
+    <div class="col-lg-4">
+      <div class="bg-white p-3 rounded shadow">
+        <h4>About We Travels</h4>
+        <p class="text-muted small">
+          We Travels is a demo travel blog project—great for college mini-projects.
+        </p>
+        <h5 class="mt-3">Quick Links</h5>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="tag" href="#gallery">Gallery</a>
+          <a class="tag" href="#contact">Contact</a>
+          <a class="tag" href="#about">About</a>
+        </div>
+        <h5 class="mt-3">Mini Gallery</h5>
+        <div class="row g-2" id="miniGallery"></div>
+      </div>
+    </div>
+  </div>
+  <!-- DESTINATIONS -->
+  <h2 class="mt-4" id="destinations">Featured Destinations</h2>
+  <div class="row g-3" id="featured"></div>
+  <!-- GALLERY -->
+  <h2 class="mt-4" id="gallery">Photo Gallery</h2>
+  <div class="row g-2" id="galleryGrid"></div>
+  <div id="postView" class="mt-4"></div>
+
+  <!-- ABOUT -->
+  <h2 class="mt-4" id="about">About</h2>
+  <div class="bg-white p-4 rounded shadow">
+    <p>Namaste 🙏 This blog is a single-page travel project with gallery, posts, and contact form.</p>
+    <h4>Features</h4>
+    <ul>
+      <li>Responsive layout</li>
+      <li>Gallery with modal</li>
+      <li>Single post view</li>
+      <li>Search system</li>
+      <li>Contact form</li>
+    </ul>
+  </div>
+  <h2 class="mt-4" id="contact">Contact</h2>
+  <div class="bg-white p-4 rounded shadow">
+    <form id="contactForm">
+      <div class="row g-2">
+        <div class="col-md-6"><input id="name" required class="form-control" placeholder="Your name"></div>
+        <div class="col-md-6"><input id="email" required class="form-control" placeholder="Email"></div>
+      </div>
+      <textarea class="form-control mt-2" id="message" placeholder="Message" rows="4"></textarea>
+      <button class="btn btn-primary mt-3">Send message</button>
+    </form>
+    <p id="formResult" class="text-success mt-2" style="display:none">Message sent!</p>
+  </div>
+</div>
+<div class="modal fade" id="imgModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <img id="modalImg" class="w-100" style="height:520px;object-fit:cover;">
+    </div>
+  </div>
+</div>
+<!-- BOOTSTRAP + JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const POSTS = [
+  {id:'goa-escape',title:'Sunsets of Goa',excerpt:'Golden beaches, seafood shacks...',img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'},
+  {id:'Taj Mahal',title:'Taj Mahal',excerpt:'Welcome to Taj Mahal...',img:'https://images.unsplash.com/photo-1524492412937-b28074a5d7da'},
+  {id:'kerala-backwaters',title:'Backwaters of Kerala',excerpt:'Houseboats & serene waters.',img:'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92'},
+  {id:'ladakh-road',title:'Road trip to Ladakh',excerpt:'High passes and lakes.',img:'https://images.unsplash.com/photo-1549880338-65ddcdfd017b'},
+  {id:'coorg-cafes',title:'Coorg — The Coffee Land',excerpt:'Coffee estates and hills.',img:'https://images.unsplash.com/photo-1501785888041-af3ef285b470'},
+  {id:'spiti-valley',title:'Quiet of Spiti',excerpt:'Remote villages & starry skies.',img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'}
+];
+const GALLERY = POSTS.map((p)=>({src:p.img}));
+
+const postsEl = document.getElementById('posts');
+const featuredEl = document.getElementById('featured');
+const galleryGrid = document.getElementById('galleryGrid');
+const miniGallery = document.getElementById('miniGallery');
+const postView = document.getElementById('postView');
+
+function createPostCard(post){
+  return `
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0">
+      <div class="thumb" style="background-image:url('${post.img}')"></div>
+      <div class="card-body">
+        <h5>${post.title}</h5>
+        <p class="text-muted">${post.excerpt}</p>
+        <a href="#post=${post.id}" class="text-primary fw-bold">Read more →</a>
+      </div>
+    </div>
+  </div>`;
+}
+function renderInitial(){
+  postsEl.innerHTML='';
+  featuredEl.innerHTML='';
+  POSTS.slice(0,4).forEach(p=>postsEl.innerHTML+=createPostCard(p));
+  POSTS.slice(0,2).forEach(p=>featuredEl.innerHTML+=createPostCard(p));
+
+  galleryGrid.innerHTML='';
+  galleryGrid.innerHTML = GALLERY.map((g,i)=>
+    `<div class="col-6 col-md-4 col-lg-3">
+      <img src="${g.src}" class="img-fluid gallery-img" onclick="openModal('${g.src}')">
+    </div>`
+  ).join('');
+
+  miniGallery.innerHTML = GALLERY.slice(0,6).map((g,i)=>
+    `<div class="col-4">
+      <img src="${g.src}" class="img-fluid">
+    </div>`
+  ).join('');
+}
+renderInitial();
+function openModal(src){
+  document.getElementById('modalImg').src = src;
+  new bootstrap.Modal(document.getElementById('imgModal')).show();
+}
+document.getElementById('loadMore').onclick = ()=>{
+  POSTS.slice(4).forEach(p=>postsEl.innerHTML+=createPostCard(p));
+  document.getElementById('loadMore').style.display='none';
+};
+document.getElementById('contactForm').onsubmit = (e)=>{
+  e.preventDefault();
+  document.getElementById('formResult').style.display='block';
+  setTimeout(()=>document.getElementById('formResult').style.display='none',3000);
+  e.target.reset();
+};
+function showPost(id){
+  const p = POSTS.find(x=>x.id===id);
+  if(!p){ postView.innerHTML=''; return; }
+  postView.innerHTML = `
+    <div class="bg-white p-4 rounded shadow">
+      <a href="#home" class="text-primary fw-bold">← Back</a>
+      <h2>${p.title}</h2>
+      <img src="${p.img}" class="heroimg mt-2 mb-3">
+      <p class="text-muted">${p.excerpt} — Full article goes here.</p>
+      <h4>Sample itinerary</h4>
+      <ol>
+        <li>Day 1 — Arrival</li>
+        <li>Day 2 — Explore</li>
+        <li>Day 3 — Return</li>
+      </ol>
+    </div>`;
+}
+function handleHash(){
+  const h = location.hash;
+  if(h.startsWith('#post=')) showPost(h.split('=')[1]);
+}
+window.addEventListener('hashchange',handleHash);
+handleHash();
+
+document.getElementById('search').oninput = (e)=>{
+  const q = e.target.value.toLowerCase().trim();
+  if(!q) return renderInitial();
+  const found = POSTS.filter(p=> (p.title+p.excerpt).toLowerCase().includes(q));
+  postsEl.innerHTML = found.length ? found.map(createPostCard).join('') :
+    '<p class="text-muted">No posts found.</p>';
+};
+</script>
+<footer>
+    <p><center>© The We Travels.com| Booking now 2025.| All Rights Reserved.</center></p>
+  </footer>
+</body>
+</html>

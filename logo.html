@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Creative Panda Emoji</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#25e2cf,#2889ff);
+  font-family: Arial, sans-serif;
+}
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+.panda {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle,#ffffff 55%,#eaeaea 100%);
+  border-radius: 50%;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.30);
+  animation: float 4s ease-in-out infinite;
+  transition: 0.4s;
+}
+.panda:hover {
+  transform: scale(1.07);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+.ear {
+  width: 75px;
+  height: 75px;
+  background: radial-gradient(circle, #3a3a3a, #121212);
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+}
+.left-ear { left: 10px; }
+.right-ear { right: 10px; }
+.eye {
+  width: 75px;
+  height: 65px;
+  background: #1c1c1c;
+  border-radius: 50%;
+  position: absolute;
+  top: 85px;
+  transform-origin: center;
+}
+@keyframes blink {
+  0%, 95% { transform: scaleY(1); }
+  97% { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+.left-eye { left: 40px; animation: blink 6s infinite; }
+.right-eye { right: 40px; animation: blink 6s infinite; }
+.pupil {
+  width: 28px;
+  height: 28px;
+  background: white;
+  border-radius: 50%;
+  margin: 18px 23px;
+  animation: eye-move 6s infinite;
+}
+.nose {
+  width: 50px;
+  height: 50px;
+  background: rgb(52, 52, 52);
+  border-radius: 70%;
+  position: absolute;
+  top: 145px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@keyframes mouthBounce {
+  0%,100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+}
+.mouth {
+  width: 130px;
+  height: 75px;
+  position: absolute;
+  top: 154px;
+  left: 50%;
+  border-bottom: 5px solid black;
+  border-radius: 0 0 90px 90px;
+  animation: mouthBounce 3s infinite;
+}
+.tooth {
+  width: 25px;
+  height: 25px;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  top: -2px;
+  border: 2px solid #dcdcdc;
+}
+.left-tooth { left: 45px; }
+.right-tooth { right: 45px; }
+.panda::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 100px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 50%;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(10px);
+}
+</style>
+</head>
+<body>
+<div class="panda">
+  <div class="ear left-ear"></div>
+  <div class="ear right-ear"></div>
+  <div class="eye left-eye">
+    <div class="pupil"></div>
+  </div>
+  <div class="eye right-eye">
+    <div class="pupil"></div>
+  </div>
+<div class="nose"></div>
+  <div class="mouth">
+    
+  </div>
+</div>
+</body>
+</html>

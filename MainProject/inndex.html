@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Find & Hire — Bootstrap Version</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1059cf;
+      --card: #d182cc;
+      --muted: #9aa6bd;
+      --accent: #a7d627;
+      --text: #2c0c84;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      transition: all 0.8s ease;
+    }
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      border-radius: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-custom {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-custom:hover {
+      transform: scale(1.03);
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .tag {
+      background: rgb(32, 174, 230);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-right: 4px;
+    }
+    .modal-content {
+      background: linear-gradient(180deg, #3babeb, #520dac);
+      color: white;
+    }
+    footer {
+      color: var(--muted);
+      margin-top: 20px;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <div class="logo">FH</div>
+        <div>
+          <h4 class="mb-0">Find & Hire</h4>
+          <small class="text-muted">Search, filter, and contact professionals — mock demo</small>
+        </div>
+      </div>
+      <span class="badge bg-secondary">100+ professionals</span>
+    </header>
+    <!-- Theme Select -->
+    <div class="text-end mb-3">
+      <select id="themeSelect" class="form-select d-inline-block w-auto">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="purple">Purple</option>
+        <option value="sunset">Sunset</option>
+      </select>
+    </div>
+    <!-- Controls -->
+    <div class="row g-2 mb-3">
+      <div class="col-md-3">
+        <input id="q" class="form-control" placeholder="Search name, skill, or keyword" />
+      </div>
+      <div class="col-md-2">
+        <select id="category" class="form-select">
+          <option value="">All categories</option>
+          <option>Design</option>
+          <option>Development</option>
+          <option>Marketing</option>
+          <option>Writing</option>
+          <option>Video</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select id="location" class="form-select">
+          <option value="">Anywhere</option>
+          <option>Remote</option>
+          <option>India</option>
+          <option>USA</option>
+          <option>Europe</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select id="sort" class="form-select">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="rating">Top rated</option>
+          <option value="price_asc">Price: Low to high</option>
+          <option value="price_desc">Price: High to low</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button id="clear" class="btn btn-outline-secondary w-100">Clear filters</button>
+      </div>
+    </div>
+    <!-- Main grid -->
+    <div class="row">
+      <div class="col-lg-9">
+        <div id="results" class="row g-3">
+          <!-- cards injected -->
+        </div>
+
+        <footer class="mt-4">© Team 2 WebDev 2025 | Find & Hire | All Rights Reserved.</footer>
+      </div>
+      <div class="col-lg-3">
+        <div class="card p-3 card-custom">
+          <h5>Filters</h5>
+          <div class="mb-3">
+            <label class="form-label">Min rating</label>
+            <select id="minRating" class="form-select">
+              <option value="0">Any</option>
+              <option value="4">4+</option>
+              <option value="4.5">4.5+</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Max hourly</label>
+            <input id="maxPrice" type="number" class="form-control" placeholder="e.g. 60" />
+          </div>
+          <hr />
+          <h6>Shortlist</h6>
+          <div id="shortlist" class="text-muted small">No saved profiles yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="hireModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header border-0">
+          <h5 id="modalTitle" class="modal-title">Hire</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modalSub" class="small text-muted"></p>
+          <input id="clientName" class="form-control mb-2" placeholder="Your name" />
+          <input id="clientEmail" class="form-control mb-2" placeholder="Your email" />
+          <textarea id="clientMsg" class="form-control mb-2" rows="4" placeholder="Project details, timeframe, budget..."></textarea>
+          <p id="hireStatus" class="small text-muted"></p>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button id="submitHire" class="btn btn-primary">Send request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const professionals = [
+      {id:1,name:'Ayesha Sharma',title:'UI/UX Designer',category:'Design',location:'India',skills:['Figma','Prototyping'],rate:30,rating:4.8,about:'Product-focused designer building clear experiences.'},
+      {id:2,name:'Rahul Mehta',title:'Frontend Developer',category:'Development',location:'Remote',skills:['React','JavaScript','CSS'],rate:45,rating:4.7,about:'I build fast, accessible web apps.'},
+      {id:3,name:'Sara Lee',title:'Content Writer',category:'Writing',location:'USA',skills:['SEO','Blogging'],rate:25,rating:4.6,about:'SEO-friendly content that converts.'},
+      {id:4,name:'Liam O\'Connor',title:'Digital Marketer',category:'Marketing',location:'Europe',skills:['Ads','Growth'],rate:50,rating:4.9,about:'Data-driven growth marketer.'},
+      {id:5,name:'Dev Patel',title:'Fullstack Engineer',category:'Development',location:'India',skills:['Node.js','React','Postgres'],rate:60,rating:4.5,about:'Scalable backend & frontend systems.'},
+      {id:6,name:'Maya Green',title:'Video Editor',category:'Video',location:'Remote',skills:['Premiere','After Effects'],rate:35,rating:4.4,about:'Polished videos for brands and creators.'}
+    ];
+    const resultsEl = document.getElementById('results');
+    const q = document.getElementById('q');
+    const category = document.getElementById('category');
+    const locationEl = document.getElementById('location');
+    const sortEl = document.getElementById('sort');
+    const minRating = document.getElementById('minRating');
+    const maxPrice = document.getElementById('maxPrice');
+    const clearBtn = document.getElementById('clear');
+    const shortlistEl = document.getElementById('shortlist');
+    let shortlist = new Set();
+    function render() {
+      const query = q.value.trim().toLowerCase();
+      const cat = category.value;
+      const loc = locationEl.value;
+      const sort = sortEl.value;
+      const minR = parseFloat(minRating.value) || 0;
+      const maxP = parseFloat(maxPrice.value) || Infinity;
+
+      let out = professionals.filter(p => {
+        if (cat && p.category !== cat) return false;
+        if (loc && p.location !== loc) return false;
+        if (p.rating < minR) return false;
+        if (p.rate > maxP) return false;
+        if (!query) return true;
+        const hay = (p.name + ' ' + p.title + ' ' + p.skills.join(' ') + ' ' + p.about).toLowerCase();
+        return hay.includes(query);
+      });
+
+      if (sort === 'rating') out.sort((a, b) => b.rating - a.rating);
+      if (sort === 'price_asc') out.sort((a, b) => a.rate - b.rate);
+      if (sort === 'price_desc') out.sort((a, b) => b.rate - a.rate);
+
+      resultsEl.innerHTML = out.map(p => cardHTML(p)).join('');
+      renderShortlist();
+    }
+    function cardHTML(p) {
+      const saved = shortlist.has(p.id) ? '❤️' : '🤍';
+      return `
+        <div class="col-md-6 col-lg-4">
+          <div class="card card-custom p-3 h-100">
+            <div class="d-flex align-items-center mb-2">
+              <div class="avatar me-3">${initials(p.name)}</div>
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small class="text-muted">${p.title}</small>
+              </div>
+            </div>
+            <p class="small text-muted">${p.about}</p>
+            <div class="mb-2">${p.skills.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <button class="btn btn-sm btn-primary" onclick="openHire(${p.id})">Hire</button>
+              <button class="btn btn-sm btn-outline-light" onclick="toggleSave(${p.id})">${saved}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function initials(name) {
+      return name.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+    }
+    function renderShortlist() {
+      if (shortlist.size === 0) {
+        shortlistEl.textContent = 'No saved profiles yet';
+        return;
+      }
+      shortlistEl.innerHTML = Array.from(shortlist)
+        .map(id => {
+          const p = professionals.find(x => x.id === id);
+          return `<div>${p.name} <small class="text-muted">· ${p.title} · $${p.rate}/hr</small></div>`;
+        })
+        .join('');
+    }
+    function toggleSave(id) {
+      shortlist.has(id) ? shortlist.delete(id) : shortlist.add(id);
+      render();
+    }
+    const modal = new bootstrap.Modal(document.getElementById('hireModal'));
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSub = document.getElementById('modalSub');
+    const clientName = document.getElementById('clientName');
+    const clientEmail = document.getElementById('clientEmail');
+    const clientMsg = document.getElementById('clientMsg');
+    const hireStatus = document.getElementById('hireStatus');
+    let hiringFor = null;
+
+    function openHire(id) {
+      const p = professionals.find(x => x.id === id);
+      hiringFor = p;
+      modalTitle.textContent = `Hire — ${p.name}`;
+      modalSub.textContent = `${p.title} · ${p.location} · $${p.rate}/hr`;
+      clientName.value = '';
+      clientEmail.value = '';
+      clientMsg.value = '';
+      hireStatus.textContent = '';
+      modal.show();
+    }
+    document.getElementById('submitHire').addEventListener('click', () => {
+      const name = clientName.value.trim();
+      const email = clientEmail.value.trim();
+      const msg = clientMsg.value.trim();
+      if (!name || !email || !msg) {
+        hireStatus.textContent = 'Please fill all fields.';
+        hireStatus.style.color = '#ef4444';
+        return;
+      }
+      hireStatus.style.color = '#9aa6bd';
+      hireStatus.textContent = 'Sending request...';
+      setTimeout(() => {
+        hireStatus.style.color = '#16a34a';
+        hireStatus.textContent = `Request sent to ${hiringFor.name}. They will contact you at ${email} (demo).`;
+        setTimeout(() => modal.hide(), 1500);
+      }, 800);
+    });
+
+    [q, category, locationEl, sortEl, minRating, maxPrice].forEach(el =>
+      el.addEventListener('input', render)
+    );
+    clearBtn.addEventListener('click', () => {
+      q.value = '';
+      category.value = '';
+      locationEl.value = '';
+      sortEl.value = 'relevance';
+      minRating.value = '0';
+      maxPrice.value = '';
+      render();
+    });
+
+    const themes = {
+      dark:{bg:'#0f1724',card:'#0b1220',muted:'#9aa6bd',accent:'#60a5fa',text:'#e6eef8'},
+      light:{bg:'#f1f5f9',card:'#ffffff',muted:'#475569',accent:'#2563eb',text:'#0f172a'},
+      blue:{bg:'#0d1b2a',card:'#1b263b',muted:'#778da9',accent:'#3a86ff',text:'#e0e1dd'},
+      green:{bg:'#0b2e29',card:'#0f3b32',muted:'#8fc8b8',accent:'#34d399',text:'#eafff7'},
+      purple:{bg:'#1a102c',card:'#241542',muted:'#a78bfa',accent:'#c084fc',text:'#ede9fe'},
+      sunset:{bg:'#2e1a12',card:'#3b2218',muted:'#f9caa7',accent:'#fb8500',text:'#fff4e6'}
+    };
+    function applyTheme(key) {
+      const t = themes[key] || themes.dark;
+      document.body.style.background = t.bg;
+      document.body.style.color = t.text;
+      document.querySelectorAll('.card-custom').forEach(c => (c.style.background = t.card));
+    }
+    document.getElementById('themeSelect').addEventListener('change', e => applyTheme(e.target.value));
+    applyTheme('dark');
+    render();
+  </script>
+</body>
+</html>

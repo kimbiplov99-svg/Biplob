@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Biplob Portfolio</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+    color: #222;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 50px 15px;
+    background: #ffffff;
+    border-bottom: 2px solid #ddd;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  .role {
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  .description {
+    max-width: 600px;
+    margin: 18px auto;
+  }
+
+  button {
+    border: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 16px;
+  }
+
+  .blue-btn {
+    background: #0077ff;
+    color: #fff;
+  }
+
+  .social-btn {
+    background: #333;
+    color: #fff;
+  }
+
+  .section-card {
+    background: #fff;
+    padding: 25px;
+    margin-top: 25px;
+    border: 1px solid #ddd;
+  }
+
+  .skills {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill {
+    background: #222;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .info-box {
+    flex: 1;
+    min-width: 280px;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+
+  footer {
+    text-align: center;
+    margin: 40px 0;
+    opacity: 0.7;
+    font-size: 15px;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <h1>Biplob Kr. M.</h1>
+    <p class="role">Front-End Developer • UI/UX Designer</p>
+
+    <p class="description">
+      I create beautiful and clean UI using HTML, CSS, JavaScript & Design Tools.
+    </p>
+
+    <div>
+      <button class="blue-btn">Download CV</button>
+      <button onclick="window.location='mailto:kimbiplov99@gmail.com'">Contact Me</button>
+    </div>
+
+    <div>
+      <button class="social-btn" onclick="openLink('https://linkedin.com')">LinkedIn</button>
+      <button class="social-btn" onclick="openLink('https://github.com')">GitHub</button>
+      <button class="social-btn" onclick="openLink('https://twitter.com')">Twitter</button>
+    </div>
+  </header>
+
+  <div class="section-card">
+    <h2>About Me</h2>
+    <p>
+      I specialize in designing clean, functional UI using HTML, CSS/SCSS, JavaScript & Adobe.  
+    </p>
+
+    <h3>Key Skills</h3>
+    <div class="skills">
+      <div class="skill">Programming</div>
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">Web Design</div>
+      <div class="skill">Graphics</div>
+      <div class="skill">Animations</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="info-box">
+      <h3>Highlights</h3>
+      <ul>
+        <li>Designed reusable UI components</li>
+        <li>Improved site performance</li>
+        <li>Mentored CSS structure techniques</li>
+        <li>Created visual info charts</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:kimbiplov99@gmail.com">kimbiplov99@gmail.com</a></p>
+      <p>Location: Ranchi, India</p>
+      <p>Open to: Front-End & UI/UX roles</p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Biplob — Built with HTML & CSS
+  </footer>
+</div>
+
+<script>
+function openLink(url){
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>

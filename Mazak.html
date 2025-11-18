@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Circle Avatar Uploader</title>
+  <style>
+    :root{
+      --size: 220px;
+      --accent: #1464f4;
+      --muted: #6b7280;
+      --bg: #f8fafc;
+    }
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    body{
+      min-height:100vh;
+      margin:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--bg);
+      color:#0f172a;
+      padding:24px;
+    }
+    .card{
+      width:100%;
+      max-width:520px;
+      background:white;
+      border-radius:12px;
+      box-shadow: 0 6px 22px rgba(6,10,20,0.08);
+      padding:20px;
+    }
+    h1{
+      font-size:18px;
+      margin:0 0 8px 0;
+    }
+    p.lead{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .uploader {
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .avatar {
+      width:var(--size);
+      height:var(--size);
+      border-radius:50%;
+      overflow:hidden;
+      background:linear-gradient(180deg, #eef2ff, #ffffff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      border:6px solid rgba(20,100,244,0.08);
+      flex-shrink:0;
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .avatar .placeholder {
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+      padding:12px;
+    }
+    .controls {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width:160px;
+    }
+
+    .file-row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    label.button {
+      display:inline-block;
+      background:var(--accent);
+      color:white;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:14px;
+      user-select:none;
+      box-shadow: 0 6px 12px rgba(20,100,244,0.12);
+    }
+    label.button:hover { filter:brightness(1.03); }
+    input[type="file"]{
+      display:none;
+    }
+    button.btn {
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid #e6eefc;
+      background:white;
+      cursor:pointer;
+      font-size:13px;
+    }
+    button.btn:active{ transform:translateY(1px); }
+
+    .small {
+      font-size:13px;
+      color:var(--muted);
+    }
+    .remove {
+      background:transparent;
+      color:#dc2626;
+      border:1px solid rgba(220,38,38,0.08);
+    }
+    .size-row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    input[type="range"]{
+      width:160px;
+    }
+    @media (max-width:520px){
+      .uploader { flex-direction:column; align-items:center; }
+      .controls { align-items:center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <h1 id="title">Upload & preview your photo in a perfect circle</h1>
+    <p class="lead">Choose an image file from your computer. The preview will crop & fit the photo into a circular avatar.</p>
+
+    <section class="uploader" aria-live="polite">
+      <div class="avatar" id="avatarPreview" aria-hidden="false">
+        <div class="placeholder" id="placeholderText">No image selected</div>
+        <!-- <img id="avatarImg" src="" alt="Your chosen avatar"> will be inserted dynamically -->
+      </div>
+
+      <div class="controls" role="region" aria-label="Image controls">
+        <div class="file-row">
+          <label class="button" for="fileInput">Choose image</label>
+          <input id="fileInput" type="file" accept="image/*" aria-label="Choose an image file" />
+          <button id="removeBtn" class="btn remove" type="button" title="Remove image">Remove</button>
+        </div>
+
+        <div class="small">Tip: for best results use a square image or a photo with subject centered.</div>
+
+        <div class="size-row" title="Change avatar size">
+          <label for="sizeRange" class="small">Size</label>
+          <input id="sizeRange" type="range" min="80" max="420" value="220" />
+          <div class="small" id="sizeValue">220px</div>
+        </div>
+
+        <div class="small" id="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const placeholderText = document.getElementById('placeholderText');
+    const status = document.getElementById('status');
+    const removeBtn = document.getElementById('removeBtn');
+    const sizeRange = document.getElementById('sizeRange');
+    const sizeValue = document.getElementById('sizeValue');
+
+    let currentImg = null;
+
+    // helper: clear preview
+    function clearPreview() {
+      if (currentImg) {
+        currentImg.remove();
+        currentImg = null;
+      }
+      placeholderText.style.display = 'block';
+      status.textContent = '';
+      fileInput.value = ''; // allow selecting the same file again later
+    }
+
+    // show image from a File object
+    function showImage(file) {
+      if (!file || !file.type.startsWith('image/')) {
+        status.textContent = 'Selected file is not an image.';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        // remove previous image if present
+        if (currentImg) currentImg.remove();
+
+        const img = document.createElement('img');
+        img.id = 'avatarImg';
+        img.alt = 'Selected avatar image';
+        img.src = e.target.result;
+
+        // hide placeholder and show image
+        placeholderText.style.display = 'none';
+        avatarPreview.appendChild(img);
+        currentImg = img;
+        status.textContent = `Loaded: ${file.name} (${Math.round(file.size/1024)} KB)`;
+      };
+      reader.onerror = function() {
+        status.textContent = 'Error reading file.';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // file input change event
+    fileInput.addEventListener('change', (ev) => {
+      const f = ev.target.files && ev.target.files[0];
+      if (!f) return;
+      // optional: reject huge files (>10MB)
+      if (f.size > 10 * 1024 * 1024) {
+        status.textContent = 'File too large. Please pick an image smaller than 10 MB.';
+        return;
+      }
+      showImage(f);
+    });
+
+    // remove button
+    removeBtn.addEventListener('click', () => {
+      clearPreview();
+      status.textContent = 'Image removed.';
+    });
+
+    // size slider
+    function setSize(px) {
+      document.documentElement.style.setProperty('--size', px + 'px');
+      sizeValue.textContent = px + 'px';
+    }
+    sizeRange.addEventListener('input', (e) => setSize(e.target.value));
+    // initialize displayed value
+    setSize(sizeRange.value);
+
+    // allow clicking the preview circle to open file dialog
+    avatarPreview.addEventListener('click', () => fileInput.click());
+
+    // keyboard accessibility: press Enter or Space on avatar to open file picker
+    avatarPreview.tabIndex = 0;
+    avatarPreview.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
+      }
+    })
+    // initial state
+    clearPreview();
+  </script>
+</body>
+</html>

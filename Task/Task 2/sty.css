@@ -1,77 +1,144 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f9f9f9;
-}
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#05315f, #0c4c8a);
+      color: #ffffff;
+    }
 
-.gallery-title {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2rem;
-  color: #333;
-}
+    h1, h2 {
+      margin: 0;
+    }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 0 10px;
-}
+    /* ---------- HEADER ---------- */
+    header {
+      padding: 25px;
+      text-align: center;
+      background: #0b62bd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
 
-.product-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+    .gallery-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
 
-.product-card img {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
+    /* ---------- SEARCH BAR ---------- */
+    .search-filter {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 25px;
+    }
 
-.product-card h2 {
-  font-size: 1.2rem;
-  margin: 10px 0 5px;
-  color: #222;
-}
+    .search-filter input,
+    .search-filter select {
+      padding: 10px;
+      border-radius: 6px;
+      outline: none;
+      border: none;
+      font-size: 16px;
+      width: 230px;
+    }
 
-.price {
-  font-weight: bold;
-  color: #e91e63;
-  margin-bottom: 5px;
-}
+    /* ---------- PRODUCT GRID ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      padding: 20px;
+      max-width: 1250px;
+      margin: auto;
+    }
 
-.description {
-  font-size: 0.9rem;
-  color: #555;
-}
+    /* ---------- PRODUCT CARD ---------- */
+    .product-card {
+      background: #acf2ee;
+      color: #222;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
 
-/* 📱 Responsive Adjustments */
-@media (max-width: 768px) {
-  .gallery {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    }
 
-  .product-card img {
-    max-width: 150px;
-  }
-}
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
 
-@media (max-width: 480px) {
-  .gallery {
-    grid-template-columns: 1fr;
-  }
+    .product-card img:hover {
+      transform: scale(1.05);
+    }
 
-  .product-card img {
-    max-width: 100%;
-  }
-}
+    .product-card h2 {
+      background: #ff0;
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: purple;
+    }
+
+    .description {
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn {
+      background: #0b62bd;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #083d85;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      text-align: center;
+      padding: 18px;
+      background: #021a33;
+      color: #fff;
+      margin-top: 30px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 480px) {
+      .btn-group {
+        flex-direction: column;
+      }
+    }
